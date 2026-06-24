@@ -49,3 +49,62 @@ def display_status():
         def explore_level():
          """Handle player actions in the current level."""
     global HEALTH, SCORE, CURRENT_LEVEL   # Modifying global variables
+
+    show_level_info(CURRENT_LEVEL)
+    
+    print("\nWhat will you do?")
+    print("1. Jump over obstacles")
+    print("2. Collect items")
+    print("3. Stomp an enemy")
+    print("4. Advance to next level")
+    print("5. Check status")
+    
+    choice = input("Enter choice (1-5): ").strip()   # User Interaction
+    
+    # Control Flow - if, elif, else
+    if choice == '1':
+        print("Great jump! +10 Score")
+        SCORE += 10
+    elif choice == '2':
+        # Using list methods
+        if levels[CURRENT_LEVEL]["items"]:
+            item = levels[CURRENT_LEVEL]["items"].pop(0)
+            inventory.append(item)          # List method: append()
+            print(f"Collected {item}! +20 Score")
+            SCORE += 20
+        else:
+            print("No more items here!")
+    elif choice == '3':
+        if levels[CURRENT_LEVEL]["enemies"]:
+            enemy = levels[CURRENT_LEVEL]["enemies"].pop(0)
+            print(f"Stomped {enemy}! +15 Score")
+            SCORE += 15
+        else:
+            print("No enemies left!")
+    elif choice == '4':
+        if CURRENT_LEVEL < len(levels):
+            CURRENT_LEVEL += 1
+            print(f"🎮 Advancing to Level {CURRENT_LEVEL}!")
+        else:
+            print("You've cleared all demo levels!")
+    elif choice == '5':
+        display_status()
+    else:
+        print("You tripped! -5 Health")
+        HEALTH -= 5
+
+
+def main():
+    """Main game loop - demonstrates Iteration (while loop)."""
+    global HEALTH
+    print("=== Welcome to Text-Based Platformer Adventure! ===")
+    print(f"You are {PLAYER_NAME}. Jump, collect, and conquer!\n")
+    
+    # Iteration: while loop for game loop
+    while HEALTH > 0:
+        display_status()
+        explore_level()
+        
+        if SCORE >= 100:        # Control Flow
+            print("\n🎉 CONGRATULATIONS! You mastered the platformer demo!")
+            break
