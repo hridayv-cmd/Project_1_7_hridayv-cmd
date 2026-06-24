@@ -47,4 +47,11 @@ while running and integrity > 0:
         break
     else:
         print("Warning: Invalid command! Day wasted.")
+        # Automated Night Phase
+    damage = 25 - (resources["Turrets"] * 5)
+    if damage > 0:
+        integrity -= damage
+        print(f"Alert: Zombies attacked! Base took {damage} damage.")
+    else:
+        print("Defense: Turrets wiped out the horde perfectly!")
 
