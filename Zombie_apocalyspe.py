@@ -24,5 +24,27 @@ while running and integrity > 0:
     
     print("1. Scavenge Supply | 2. Upgrade Turrets | 3. Abandon Base")
     choice = input("Your Command (1-3): ").strip()
-
+# 4. Control Flow & User Interaction
+    if choice == "1":
+        if survivors:
+            scrap += 20
+            resources["Food"] += 5
+            print("Success: Safe return! +20 Scrap, +5 Food.")
+        else:
+            print("Error: No survivors left to send out!")
+            
+    elif choice == "2":
+        if scrap >= 25:
+            scrap -= 25
+            resources["Turrets"] += 1  # Modifying Dictionary
+            print(f"Upgrade: Turrets upgraded to Level {resources['Turrets']}!")
+        else:
+            print("Error: Not enough scrap metal!")
+            
+    elif choice == "3":
+        running = False
+        print("Notice: Base abandoned.")
+        break
+    else:
+        print("Warning: Invalid command! Day wasted.")
 
