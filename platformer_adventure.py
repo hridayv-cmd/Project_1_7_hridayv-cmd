@@ -35,3 +35,17 @@ def display_status():
     print(f"Health: {HEALTH} | Score: {SCORE} | Level: {CURRENT_LEVEL}")
     # Using list to show inventory
     print(f"Inventory: {inventory if inventory else 'Empty'}")
+
+    def show_level_info(level):
+       """Show details about the current level."""
+    if level in levels:  # Control Flow (if statement)
+        lvl = levels[level]
+        print(f"\n--- Level {level}: {lvl['name']} ---")
+        print(lvl["description"])
+        print(f"Enemies: {', '.join(lvl['enemies'])}")
+        print(f"Items: {', '.join(lvl['items'])}")
+    else:
+        print("Unknown level!")
+        def explore_level():
+         """Handle player actions in the current level."""
+    global HEALTH, SCORE, CURRENT_LEVEL   # Modifying global variables
