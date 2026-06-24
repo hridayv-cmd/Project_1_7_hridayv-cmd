@@ -10,6 +10,7 @@ days = 0
 scrap = 40
 integrity = 100
 running = True
+successful_escape = False
 
 # 2. Collections
 survivors = ["Alice", "Bob", "Charlie"]  # List
@@ -40,18 +41,50 @@ while running and integrity > 0:
             print(f"Upgrade: Turrets upgraded to Level {resources['Turrets']}!")
         else:
             print("Error: Not enough scrap metal!")
-            
     elif choice == "3":
+        print(f"\nNotice: You abandoned {NAME}!")
+        if days >= 11:
+            print("Good ending! You selected the right time to exit and move to a new base.")
+            successful_escape = True
+        else:
+            print(f"Bad ending! You abandoned the base on Day {days}. You could have survived longer instead of staying there for a short time and risking moving around during a horde.")
+            successful_escape = False  # Left too early, considered a failure
         running = False
-        print("Notice: Base abandoned.")
         break
     else:
         print("Warning: Invalid command! Day wasted.")
-        # Automated Night Phase
-    damage = 25 - (resources["Turrets"] * 5)
+        # 5. NEW CHALLENGE MECHANICS
+        # Zombie power scales up by 3 every single day
+    zombie_attack_power = 15 + (days * 3)
+    damage = zombie_attack_power - (resources["Turrets"] * 6)
+    
     if damage > 0:
         integrity -= damage
-        print(f"Alert: Zombies attacked! Base took {damage} damage.")
+        print(f"Alert: Zombies attacked with {zombie_attack_power} power! Base took {damage} damage.")
     else:
         print("Defense: Turrets wiped out the horde perfectly!")
 
+
+    # New Food Consumption & Starvation Rule (Replaces your old food line!)
+    food_needed = len(survivors) * 2
+    if resources["Food"] >= food_needed:
+        resources["Food"] -= food_needed
+    else:
+        resources["Food"] = 0
+        if survivors:
+            lost_survivor = survivors.pop()  # Removes the last person from the list
+            print(f"CRITICAL: Starvation! {lost_survivor} ran out of food and perished.")
+
+# 6. Game end code
+print(f"\n=== GAME OVER ===")
+if integrity <= 0:
+    print("Reason: The base walls collapsed under the zombie horde.")
+elif len(survivors) == 0:
+    print("Reason: All survivors starved to death.")
+elif choice == "3" and not successful_escape:
+    print("Reason: Unsuccessful abandonment. Your team was caught in the open during a horde due to an poorly timed exit.")
+else:
+    print("Reason: You successfully abandoned the base and escaped at the perfect moment!")
+
+
+print(f"You survived {days} days.")
