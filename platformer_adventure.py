@@ -28,3 +28,10 @@ levels = {
         "items": ["Fire Flower"]
     }
 }
+
+def display_status():
+    """Display current player status."""
+    print(f"\n=== {PLAYER_NAME}'s Status ===")
+    print(f"Health: {HEALTH} | Score: {SCORE} | Level: {CURRENT_LEVEL}")
+    # Using list to show inventory
+    print(f"Inventory: {inventory if inventory else 'Empty'}")
