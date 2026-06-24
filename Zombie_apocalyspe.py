@@ -16,3 +16,13 @@ survivors = ["Alice", "Bob", "Charlie"]  # List
 resources = {"Food": 10, "Turrets": 1}   # Dictionary
 
 print(f"=== Welcome to {NAME} ===")
+
+#3 Main While Loop
+while running and integrity > 0:
+    days += 1
+    print(f"\nDay {days} | Scrap: {scrap} | Integrity: {integrity}% | Team: {survivors}")
+    
+    print("1. Scavenge Supply | 2. Upgrade Turrets | 3. Abandon Base")
+    choice = input("Your Command (1-3): ").strip()
+
+
