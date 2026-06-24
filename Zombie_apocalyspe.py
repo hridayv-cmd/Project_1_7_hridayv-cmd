@@ -10,3 +10,9 @@ days = 0
 scrap = 40
 integrity = 100
 running = True
+
+# 2. Collections
+survivors = ["Alice", "Bob", "Charlie"]  # List
+resources = {"Food": 10, "Turrets": 1}   # Dictionary
+
+print(f"=== Welcome to {NAME} ===")
