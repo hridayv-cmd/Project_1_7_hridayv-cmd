@@ -64,15 +64,19 @@ while running and integrity > 0:
         print("Defense: Turrets wiped out the horde perfectly!")
 
 
-    # New Food Consumption & Starvation Rule (Replaces your old food line!)
+    # New Food Consumption & Starvation Rule
     food_needed = len(survivors) * 2
     if resources["Food"] >= food_needed:
         resources["Food"] -= food_needed
     else:
         resources["Food"] = 0
         if survivors:
-            lost_survivor = survivors.pop()  # Removes the last person from the list
+            lost_survivor = survivors.pop()  
             print(f"CRITICAL: Starvation! {lost_survivor} ran out of food and perished.")
+            
+    if len(survivors) == 0:
+        running = False
+        break
 
 # 6. Game end code
 print(f"\n=== GAME OVER ===")
