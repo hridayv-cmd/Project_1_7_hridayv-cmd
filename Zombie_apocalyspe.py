@@ -43,12 +43,11 @@ while running and integrity > 0:
             print("Error: Not enough scrap metal!")
     elif choice == "3":
         print(f"\nNotice: You abandoned {NAME}!")
-        if days >= 11:
-            print("Good ending! You selected the right time to exit and move to a new base.")
+       
+        if days >= 11 or integrity <= 15:
             successful_escape = True
         else:
-            print(f"Bad ending! You abandoned the base on Day {days}. You could have survived longer instead of staying there for a short time and risking moving around during a horde.")
-            successful_escape = False  # Left too early, considered a failure
+            successful_escape = False  
         running = False
         break
     else:
@@ -77,14 +76,13 @@ while running and integrity > 0:
 
 # 6. Game end code
 print(f"\n=== GAME OVER ===")
-if integrity <= 0:
+if choice == "3" and successful_escape:
+    print("Good ending! You selected the perfect tactical time to exit and safely moved to a new base.")
+elif choice == "3" and not successful_escape:
+    print(f"Bad ending! You abandoned the base on Day {days} while it was still perfectly secure. You risked moving around during a horde for no reason.")
+elif integrity <= 0:
     print("Reason: The base walls collapsed under the zombie horde.")
 elif len(survivors) == 0:
     print("Reason: All survivors starved to death.")
-elif choice == "3" and not successful_escape:
-    print("Reason: Unsuccessful abandonment. Your team was caught in the open during a horde due to an poorly timed exit.")
-else:
-    print("Reason: You successfully abandoned the base and escaped at the perfect moment!")
-
 
 print(f"You survived {days} days.")
